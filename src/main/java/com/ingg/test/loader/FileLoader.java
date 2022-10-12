@@ -9,11 +9,27 @@ import java.util.Objects;
 
 public class FileLoader {
 
+  //What's the diff b/w this and the next line ?
+  //private static FileLoader fileLoaderInstance = new FileLoader();
+  private static FileLoader fileLoaderInstance = null;
+
   private FileLoader() {}
 
-  public static String[] loadTextArrayFromFile() {
-    return load("english.txt");
+  public static FileLoader getFileLoaderInstance() {
+    if(fileLoaderInstance == null){
+      fileLoaderInstance = new FileLoader();
+    }
+    return fileLoaderInstance;
   }
+
+  public static String[] loadTextArrayFromFile() {
+    if(charArray == null || charArray.length < 1){
+      charArray = load("english.txt");
+    }
+    return charArray;
+  }
+
+  private static String[] charArray;
 
   private static String[] load(String fileName) {
     try (BufferedReader br =
